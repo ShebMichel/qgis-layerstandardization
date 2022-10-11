@@ -1,0 +1,47 @@
+# This file contains metadata for your plugin.
+
+# This file should be included when you package your plugin.# Mandatory items:
+
+[general]
+name=Vector/Raster Standardization
+qgisMinimumVersion=3.0
+description=This plugin standardize the layer columns and row id before it is used for map2loop
+version=0.1
+author=Michel Nzikou
+email=michel.nzikou@alumni.uleth.ca
+
+about=Allow the user to standardize layers with the common columns and row id for fault, fold and raster data.
+
+tracker=https://github.com/ShebMichel/qgis-layerstandardization/issues
+repository=https://github.com/ShebMichel/qgis-layerstandardization
+# End of mandatory metadata
+
+# Recommended items:
+
+hasProcessingProvider=no
+# Uncomment the following line and add your changelog:
+# changelog=
+
+# Tags are comma separated with spaces allowed
+tags=QGIS, Layer, Raster, Attributes, python
+
+homepage=https://github.com/ShebMichel/qgis-layerstandardization
+category=Plugins
+icon=icon.png
+# experimental flag
+experimental=True
+
+# deprecated flag (applies to the whole plugin, not just a single version)
+deprecated=False
+
+# Since QGIS 3.8, a comma separated list of plugins to be installed
+# (or upgraded) can be specified.
+# Check the documentation for more information.
+# plugin_dependencies=
+
+Category of the plugin: Raster, Vector, Database or Web
+# category=
+
+# If the plugin can run on QGIS Server.
+server=False
+
