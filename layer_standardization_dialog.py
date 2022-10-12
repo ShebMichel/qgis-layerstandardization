@@ -409,7 +409,7 @@ class LayerStandardizationDialog(QtWidgets.QDialog, FORM_CLASS):
         structure_filename= str(self.StructPath)
         dtm_filename      = 'http://services.ga.gov.au/gis/services/DEM_SRTM_1Second_over_Bathymetry_Topography/MapServer/WCSServer?'
         metadata_filename = str(self.filepath)+'/'+'data.json'
-        mindep_filename   = 'http://13.211.217.129:8080/geoserver/loop/wms?service=WMS&version=1.1.0&request=GetMap&layers=loop%3Anull_mindeps'
+        mindep_filename   = 'http://13.211.217.129:8080/geoserver/loop/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName=loop:null_mindeps&bbox={BBOX_STR}&srs=EPSG:28350&outputFormat=shape-zip'
         overwrite         = 'true'
         verbose_level     = 'VerboseLevel.NONE'
         project_path      = str(self.filepath)
