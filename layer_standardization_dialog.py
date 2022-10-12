@@ -286,7 +286,7 @@ class LayerStandardizationDialog(QtWidgets.QDialog, FORM_CLASS):
             self.default_data     = [ 'volc', '0','No_col','500']  # Hard Coded default data
             self.Alldata          = self.geol_data+self.fault_data+self.struct_data+self.mindeposit_data+self.fold_data+self.default_data
             geol_listKeys         = ['c','g','g2','ds','u','r1','r2','o-geol','min','max','sill','intrusive'] #o-geol is initially o
-            fault_listKeys        = ['fdip','fdipdir','f','fdipdir flag','fdipest','o','fault','fdipest_vals']    
+            fault_listKeys        = ['fdip','fdipdir','f','fdipdir_flag','fdipest','o','fault','fdipest_vals']    
             struct_listKeys       = ['d','dd','sf','otype','bo','gi','bedding','btype'] #o-struct is initially o 
             mindeposit_lisKeys    = ['msc','msn','mst','mtc','mscm','mcom','minf']
             fold_lisKeys          = ['ff','fold','t','syn']
