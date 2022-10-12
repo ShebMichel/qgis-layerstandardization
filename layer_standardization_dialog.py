@@ -58,7 +58,6 @@ class LayerStandardizationDialog(QtWidgets.QDialog, FORM_CLASS):
         self.SearchFolder.setEnabled(False)
         ######
         self.Folder_checkBox.pressed.connect(self.select_folder)
-        #self.Save_pushButton.clicked.connect(self.btnstate)
         ################ add Geology and save its layer param into a list
         self.GeolButton.clicked.connect(self.create_geology_IdName)
         self.GeolButton.clicked.connect(self.GeolLayerbtnstate)
@@ -105,9 +104,9 @@ class LayerStandardizationDialog(QtWidgets.QDialog, FORM_CLASS):
             if self.GeolButton.objectName()=='GeolButton':
                 self.GeolPath=self.GeolPath
             geol_comboHeader = ['Formation*', 'Group*','Supergroup*', 'Description*', 'Fm code*', 'Rocktype 1*','Rocktype 2*','Polygon ID*','Min Age*','Max Age*']
-            colNames = xLayerReader()
-            for col in colNames:
-                self.combo_column_appender(col)        # This code add element in combo items
+            colNames         = xLayerReader()
+            #for col in colNames:
+            self.combo_column_appender(colNames)        # This code add element in combo items
             self.label_replacer(geol_comboHeader)      # This code changes 1st item of combo box
             Sill_Msg=" Enter Sill Text:"
             Intr_Msg=" Enter Intrusion Text:"
@@ -133,9 +132,8 @@ class LayerStandardizationDialog(QtWidgets.QDialog, FORM_CLASS):
             if self.FaultButton.objectName()=='FaultButton':
                 self.FaultPath=self.FaultPath
             fault_comboHeader = ['Default Dip*', 'Dip Direction*','Feature*', 'Dip Direction type*', 'fdipest*', 'Point ID*',' ',' ',' ',' ']
-            colNames = xLayerReader()
-            for col in colNames:
-                self.combo_column_appender(col)                                        # This code add element in combo items
+            colNames          = xLayerReader()
+            self.combo_column_appender(colNames)                                        # This code add element in combo items
                 ### Transform
             DipDirectionConv_colNames =[' ','num','alpha']                             # Empty label is set for the Header name
             self.cmbDescriptionLayerIDName.clear()                                     # Clear the Dip Direction Convention* box
@@ -164,12 +162,11 @@ class LayerStandardizationDialog(QtWidgets.QDialog, FORM_CLASS):
             p,self.StructPath=self.activate_layers()                                   # This help select the shapefile
             if self.StructButton.objectName()=='StructButton':
                 self.StructPath=self.StructPath 
-            fault_comboHeader = ['Dip*', 'Dip Direction*','Feature*', 'Dip Direction Convention*', 'Overturned Field*', 'Point ID*',' ',' ',' ',' ']
-            colNames = xLayerReader()
-            for col in colNames:
-                self.combo_column_appender(col)
+            fault_comboHeader  = ['Dip*', 'Dip Direction*','Feature*', 'Dip Direction Convention*', 'Overturned Field*', 'Point ID*',' ',' ',' ',' ']
+            colNames           = xLayerReader()
+            self.combo_column_appender(colNames)
             ### Transform
-            DipDirectionConv_colNames =[' ',' ','Strike','Dip Direction']                  # Empty label is set for the Header name
+            DipDirectionConv_colNames =[' ','Strike','Dip Direction']                  # Empty label is set for the Header name
             self.cmbDescriptionLayerIDName.clear()                                     # Clear the Dip Direction Convention* box
             self.cmbDescriptionLayerIDName.addItems(DipDirectionConv_colNames)         # Clear the Dip Direction Convention* box
             self.label_replacer(fault_comboHeader)                                     # This code changes 1st item of combo box
@@ -198,7 +195,7 @@ class LayerStandardizationDialog(QtWidgets.QDialog, FORM_CLASS):
                     self.cmbFmLayerIDName, self.cmbRocktype1LayerIDName,
                     self.cmbRocktype2LayerIDName,self.cmbPointIDLayerIDName,
                     self.cmbMinAgeLayerIDName,self.cmbMaxAgeLayerIDName]
-        combo_flag = self.cmbFormationLayerIDName.itemText(0)
+        combo_flag    = self.cmbFormationLayerIDName.itemText(0)
         if combo_flag == 'Formation*':
             geol_data = []           
             for i in range(10):
@@ -229,7 +226,7 @@ class LayerStandardizationDialog(QtWidgets.QDialog, FORM_CLASS):
                 self.my_combo_list[i].clear()
             self.fault_input     = self.Sill_LineEditor.text()
             self.fdipest_input   = self.Intrusion_LineEditor.text()
-            self.a_fault         = self.default_input(self.fault_input,'fault')
+            self.a_fault         = self.default_input(self.fault_input,'Fault')
             self.a_fdipest       = self.default_input(self.fdipest_input,'shallow,steep,vertical')
             self.fault_data      = fault_data[0:6]+[str(self.a_fault),str(self.a_fdipest)]  #
             self.btnstate(self.FaultButton,'Fault params were saved')
@@ -239,6 +236,7 @@ class LayerStandardizationDialog(QtWidgets.QDialog, FORM_CLASS):
 ############################################################################################################
 ###### This function save Structure/Point Layer ID name into a scroll down search
     def save_struct_IdName(self):
+        self.clear_combo_list()
         self.my_combo_list =[self.cmbFormationLayerIDName,self.cmbGroupLayerIDName,
                     self.cmbSupergroupLayerIDName,self.cmbDescriptionLayerIDName,
                     self.cmbFmLayerIDName, self.cmbRocktype1LayerIDName,
@@ -252,9 +250,9 @@ class LayerStandardizationDialog(QtWidgets.QDialog, FORM_CLASS):
                 self.my_combo_list[i].clear()
             self.bedding_input     = self.Sill_LineEditor.text()
             self.overtune_input    = self.Intrusion_LineEditor.text()
-            self.a_bedding         = self.default_input(self.bedding_input ,'bed')
+            self.a_bedding         = self.default_input(self.bedding_input ,'Bed')
             self.a_overtune        = self.default_input(self.overtune_input,'overturned')
-            self.struct_data       = struct_data[0:7]+[str(self.a_bedding),str(self.a_overtune)]  #
+            self.struct_data       = struct_data[0:6]+[str(self.a_bedding),str(self.a_overtune)]  #
             self.btnstate(self.StructButton,'Structure params were saved')
             self.Sill_LineEditor.clear()
             self.Intrusion_LineEditor.clear()
@@ -289,7 +287,7 @@ class LayerStandardizationDialog(QtWidgets.QDialog, FORM_CLASS):
             self.Alldata          = self.geol_data+self.fault_data+self.struct_data+self.mindeposit_data+self.fold_data+self.default_data
             geol_listKeys         = ['c','g','g2','ds','u','r1','r2','o-geol','min','max','sill','intrusive'] #o-geol is initially o
             fault_listKeys        = ['fdip','fdipdir','f','fdipdir flag','fdipest','o','fault','fdipest_vals']    
-            struct_listKeys       = ['d','dd','sf','otype','bo','o-struct','bedding','btype'] #o-struct is initially o 
+            struct_listKeys       = ['d','dd','sf','otype','bo','gi','bedding','btype'] #o-struct is initially o 
             mindeposit_lisKeys    = ['msc','msn','mst','mtc','mscm','mcom','minf']
             fold_lisKeys          = ['ff','fold','t','syn']
             default_keys          = ['volcanic','fdipnull','n','deposit_dist']  # Hard Coded default data keys
@@ -297,6 +295,7 @@ class LayerStandardizationDialog(QtWidgets.QDialog, FORM_CLASS):
             formation_data        = dict(zip(AllKeys, self.Alldata))
             json_path             = self.SearchFolder.text()
             try:
+               #print('formation data {}'.format(formation_data))
                create_json_file(json_path,formation_data)
                QMessageBox.about(self,"STATUS", "*****json file created*****")
             except:
@@ -350,8 +349,8 @@ class LayerStandardizationDialog(QtWidgets.QDialog, FORM_CLASS):
                             self.cmbFmLayerIDName, self.cmbRocktype1LayerIDName,
                             self.cmbRocktype2LayerIDName,self.cmbPointIDLayerIDName,
                             self.cmbMinAgeLayerIDName,self.cmbMaxAgeLayerIDName]
-        for id,self.elt in enumerate(self.my_combo_list):
-            self.elt.setItemText(0, list_of_element[id])
+        for id,replace_elt in enumerate(self.my_combo_list):
+            replace_elt.setItemText(0, list_of_element[id])
         return
 ############################################################################################################
      ###### This function append combo elt to all layer name
@@ -361,8 +360,11 @@ class LayerStandardizationDialog(QtWidgets.QDialog, FORM_CLASS):
                             self.cmbFmLayerIDName, self.cmbRocktype1LayerIDName,
                             self.cmbRocktype2LayerIDName,self.cmbPointIDLayerIDName,
                             self.cmbMinAgeLayerIDName,self.cmbMaxAgeLayerIDName]
-        for id,self.elt in enumerate(self.my_combo_list):
-            self.elt.addItem(str(col_list))
+        for id,elt2 in enumerate(self.my_combo_list):
+            if not self.cmbFormationLayerIDName:
+                elt2.addItems(['']+col_list)
+            else:
+                elt2.addItems(col_list)  
         return
 ############################################################################################################
     def default_input(self, value,input_tag):
@@ -387,6 +389,17 @@ class LayerStandardizationDialog(QtWidgets.QDialog, FORM_CLASS):
         label =label1
         label1.move(X1,Y1)
 ############################################################################################################
+###### This function save Structure/Point Layer ID name into a scroll down search
+    def clear_combo_list(self):
+        self.my_combo_list =[self.cmbFormationLayerIDName,self.cmbGroupLayerIDName,
+                    self.cmbSupergroupLayerIDName,self.cmbDescriptionLayerIDName,
+                    self.cmbFmLayerIDName, self.cmbRocktype1LayerIDName,
+                    self.cmbRocktype2LayerIDName,self.cmbPointIDLayerIDName,
+                    self.cmbMinAgeLayerIDName,self.cmbMaxAgeLayerIDName]
+        for i in range(10):
+            self.my_combo_list[i].clear    
+        return 
+############################################################################################################
     def save_your_python_file(self):
         self.filepath     = self.SearchFolder.text()
         self.pyfilename   = 'Run_test'                     ##  This is the name of the python file created
@@ -403,7 +416,7 @@ class LayerStandardizationDialog(QtWidgets.QDialog, FORM_CLASS):
         working_projection= 'epsg:28350'
         # ### Here we define data2 paramas
         out_dir           =str(self.filepath)
-        bbox_3d           ={'minx': 0.0, 'miny': 0.0, 'maxx': 1.0, 'maxy': 1.0, 'base': 0.0, 'top': 1.0}
+        bbox_3d           ={'minx': 520000, 'miny': 7490000, 'maxx': 550000, 'maxy': 7510000, 'base': -3200, 'top': 1200}
         run_flags         ={'aus': True, 'close_dip': -999.0, 'contact_decimate': 5, 'contact_dip': -999.0, 'contact_orientation_decimate': 5, 'deposits': 'Fe,Cu,Au,NONE', 'dist_buffer': 10.0, 'dtb': '', 'fat_step': 750.0, 'fault_decimate': 5, 'fault_dip': 90.0, 'fold_decimate': 5, 'interpolation_scheme': 'scipy_rbf', 'interpolation_spacing': 500.0, 'intrusion_mode': 0, 'max_thickness_allowed': 10000.0, 'min_fault_length': 5000.0, 'misorientation': 30.0, 'null_scheme': 'null_scheme', 'orientation_decimate': 0, 'pluton_dip': 45.0, 'pluton_form': 'domes', 'thickness_buffer': 5000.0, 'use_fat': False, 'use_interpolations': False, 'fault_orientation_clusters': 2, 'fault_length_clusters': 2, 'use_roi_clip': False, 'roi_clip_path': ''}
         proj_crs          ='epsg:28350'
         clut_path         =''
